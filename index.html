@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patisserie Vanilla - باتيسري فانيلا</title>
+    <meta name="description" content="باتيسري فانيلا - أطعم الحلويات والمخبوزات بأعلى جودة">
+    <meta name="theme-color" content="#7B2F47">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --wine: #7B2F47;
+            --wine-deep: #5A1F33;
+            --rose: #D98FA5;
+            --blush: #F7E6E8;
+            --cream: #FBF6EE;
+            --gold: #B8924F;
+            --gold-soft: #E9D9B8;
+            --ink: #3B2A2A;
+            --muted: #7A6A68;
+            --white: #FFFFFF;
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            color: var(--ink);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ الهيدر ============ */
+        header {
+            position: relative;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(217,143,165,0.35), transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(184,146,79,0.25), transparent 45%),
+                linear-gradient(160deg, var(--wine) 0%, var(--wine-deep) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 4.5rem 1.2rem 7rem;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.09) 1.5px, transparent 1.5px);
+            background-size: 26px 26px;
+            pointer-events: none;
+        }
+
+        .header-inner {
+            position: relative;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--gold-soft);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: '';
+            width: 70px;
+            height: 1px;
+            background: linear-gradient(to left, transparent, var(--gold-soft));
+        }
+
+        .ornament::after {
+            transform: scaleX(-1);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            line-height: 1.1;
+            letter-spacing: 1px;
+            direction: ltr;
+        }
+
+        .brand-ar {
+            font-size: clamp(1.4rem, 4vw, 1.9rem);
+            font-weight: 700;
+            color: var(--gold-soft);
+            margin-top: 0.4rem;
+        }
+
+        .tagline {
+            margin-top: 1rem;
+            font-size: clamp(1rem, 2.6vw, 1.2rem);
+            opacity: 0.92;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: block;
+        }
+
+        .wave path {
+            fill: var(--cream);
+        }
+
+        /* ============ شريط الأقسام ============ */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(251,246,238,0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gold-soft);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .filter-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            flex: 0 0 auto;
+            font-family: inherit;
+            font-size: 0.98rem;
+            background: transparent;
+            color: var(--wine);
+            border: 1.5px solid var(--rose);
+            padding: 7px 20px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover {
+            background: var(--blush);
+        }
+
+        .filter-btn.active {
+            background: var(--wine);
+            border-color: var(--wine);
+            color: var(--white);
+            box-shadow: 0 6px 14px rgba(123,47,71,0.28);
+        }
+
+        .filter-btn:focus-visible,
+        .order-btn:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* ============ المحتوى ============ */
+        .container {
+            max-width: 1180px;
+            margin: 0 auto 2rem;
+            padding: 0 1.2rem;
+        }
+
+        .category-group {
+            padding-top: 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 2rem;
+            color: var(--wine);
+            font-size: clamp(1.7rem, 4vw, 2.3rem);
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '❖';
+            display: block;
+            color: var(--gold);
+            font-size: 1rem;
+            margin-top: 6px;
+            letter-spacing: 6px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 320px));
+            justify-content: center;
+            gap: 2rem 1.8rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(90,31,51,0.08);
+            border: 1px solid rgba(233,217,184,0.6);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 38px rgba(123,47,71,0.18);
+        }
+
+        .card-img {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: var(--blush);
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.07);
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 35%;
+            background: linear-gradient(to top, rgba(59,42,42,0.18), transparent);
+            pointer-events: none;
+        }
+
+        .card-body {
+            padding: 1.3rem 1.3rem 1.4rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .card-body h3 {
+            color: var(--wine);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .card-body p {
+            font-size: 0.96rem;
+            color: var(--muted);
+        }
+
+        .order-btn {
+            background: transparent;
+            color: var(--wine);
+            border: 1.5px solid var(--wine);
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            font-family: inherit;
+            font-size: 1rem;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.25s ease;
+        }
+
+        .order-btn:hover {
+            background: var(--wine);
+            color: var(--white);
+        }
+
+        /* ============ الفوتر ============ */
+        footer {
+            background: var(--wine-deep);
+            color: var(--gold-soft);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            font-size: 0.95rem;
+        }
+
+        footer .brand {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.6rem;
+            color: var(--white);
+            margin-bottom: 0.3rem;
+            direction: ltr;
+        }
+
+        /* ============ حركة الظهور والفلترة ============ */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .js .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .category-group.show {
+            animation: fadeUp 0.5s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        @media (max-width: 520px) {
+            header { padding: 3.5rem 1rem 6rem; }
+            .filter-container { justify-content: flex-start; }
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <script>document.documentElement.classList.add('js');</script>
+
+    <header>
+        <div class="header-inner">
+            <div class="ornament">❖</div>
+            <h1>Patisserie Vanilla</h1>
+            <div class="brand-ar">باتيسري فانيلا</div>
+            <p class="tagline">أطعم الحلويات والمخبوزات بأعلى جودة</p>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,40 C240,80 480,0 720,30 C960,60 1200,70 1440,20 L1440,70 L0,70 Z"></path>
+        </svg>
+    </header>
+
+    <div class="nav-wrap">
+        <nav class="filter-container" aria-label="أقسام المنيو">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="cakes">الكيك والتشيز كيك</button>
+            <button class="filter-btn" data-filter="eastern">الحلى الشرقي</button>
+            <button class="filter-btn" data-filter="bakery">المخبوزات والدونات</button>
+            <button class="filter-btn" data-filter="nawashef">النواشف والمعمول</button>
+        </nav>
+    </div>
+
+    <main class="container" id="menu">
+
+        <!-- قسم الكيك والتشيز كيك -->
+        <section class="category-group" id="cakes">
+            <h2 class="section-title">الكيك والتشيز كيك</h2>
+            <div class="grid">
+                <article class="card reveal">
+                    <div class="card-img"><img src="cake-full.jpg" alt="قوالب الكيك والجاتو" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>قوالب الكيك والجاتو</h3>
+                            <p>تصاميم فاخرة لمختلف المناسبات والسهرات بنكهات مميزة.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="cake-slice.jpg" alt="قطع الكيك" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>قطع الكيك والجاتو</h3>
+                            <p>شرائح كيك غنية ومتنوعة يومياً (ريد فيلفيت، شوكولاتة، وجزر).</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="cheesecake.jpg" alt="التشيز كيك" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>التشيز كيك</h3>
+                            <p>تشيز كيك أوريو وفاخر بقوام كريمي وطعم لا يُقاوم.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- قسم الحلويات الشرقية -->
+        <section class="category-group" id="eastern">
+            <h2 class="section-title">الحلى الشرقي</h2>
+            <div class="grid">
+                <article class="card reveal">
+                    <div class="card-img"><img src="eastern-sweets.jpg" alt="حلى شرقي مشكل Patisserie Vanilla" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>حلى شرقي مشكل</h3>
+                            <p>علبة Patisserie Vanilla الفاخرة من البقلاوة والمشكلات بالفستق والكاجو بالسمن البلدي الأصيل.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- قسم المخبوزات والدونات -->
+        <section class="category-group" id="bakery">
+            <h2 class="section-title">المخبوزات والدونات</h2>
+            <div class="grid">
+                <article class="card reveal">
+                    <div class="card-img"><img src="donuts.jpg" alt="الدونات الهشة" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>الدونات الهشة</h3>
+                            <p>تشكيلة دونات طازجة بتغطيات الشوكولاتة، الكراميل، اللوتس، والفستق.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="bakery.jpg" alt="خبز التوست والمخبوزات" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>خبز التوست والمخبوزات</h3>
+                            <p>خبز توست طويل، خبز برجر، وصامولي طازج ومحمص يومياً لإفطارك المميز.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- قسم النواشف والمعمول -->
+        <section class="category-group" id="nawashef">
+            <h2 class="section-title">النواشف والمعمول</h2>
+            <div class="grid">
+                <article class="card reveal">
+                    <div class="card-img"><img src="maamoul.jpg" alt="معمول التمر الفاخر" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>معمول التمر الفاخر</h3>
+                            <p>طعم أصيل هَشّ يُحضر بالسمن الفاخر والبلدي ليذوب في الفم.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="sablieh.jpg" alt="السابليه والكوكيز" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>السابليه والكوكيز</h3>
+                            <p>تشكيلة سابليه وهشة بتغطيات الشوكولاتة، المكسرات والكراميل.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="barazek.jpg" alt="البرازق المقرمشة" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>البرازق الشامية</h3>
+                            <p>برازق مقرمشة غنية بالسمسم المحمص والفستق الحلبي الفاخر.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+                <article class="card reveal">
+                    <div class="card-img"><img src="ghoriba.jpg" alt="الغريبة الشامية" loading="lazy"></div>
+                    <div class="card-body">
+                        <div>
+                            <h3>الغريبة الشامية</h3>
+                            <p>غريبة شامية ناعمة محددة بالفستق الحلبي وتذوب بالفم.</p>
+                        </div>
+                        <a href="#" class="order-btn">اطلب الآن</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="brand">Patisserie Vanilla</div>
+        <p>جميع الحقوق محفوظة &copy; 2026 - Patisserie Vanilla</p>
+    </footer>
+
+    <script>
+        (function () {
+            var buttons = document.querySelectorAll('.filter-btn');
+            var groups = document.querySelectorAll('.category-group');
+            var cards = document.querySelectorAll('.reveal');
+
+            // ظهور تدريجي للبطاقات عند التمرير
+            var observer = null;
+            if ('IntersectionObserver' in window) {
+                observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12 });
+                cards.forEach(function (c) { observer.observe(c); });
+            } else {
+                cards.forEach(function (c) { c.classList.add('in'); });
+            }
+
+            function filterCategory(category) {
+                buttons.forEach(function (btn) {
+                    btn.classList.toggle('active', btn.dataset.filter === category);
+                });
+
+                groups.forEach(function (group) {
+                    var visible = category === 'all' || group.id === category;
+                    group.style.display = visible ? 'block' : 'none';
+                    group.classList.remove('show');
+                    if (visible) {
+                        void group.offsetWidth;
+                        group.classList.add('show');
+                        group.querySelectorAll('.reveal').forEach(function (c) { c.classList.add('in'); });
+                    }
+                });
+
+                var menu = document.getElementById('menu');
+                var nav = document.querySelector('.nav-wrap');
+                var top = menu.getBoundingClientRect().top + window.pageYOffset - nav.offsetHeight - 10;
+                if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: 'smooth' });
+            }
+
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function () { filterCategory(btn.dataset.filter); });
+            });
+        })();
+    </script>
+</body>
+</html>
